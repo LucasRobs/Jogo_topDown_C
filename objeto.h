@@ -52,6 +52,28 @@ void objeto_print(Objeto * obj){
     printf("%c", obj->nome);
 }
 
+void destruir_postes(int l, Objeto* postes, int *t, Objeto* portas, int *t2, int k){
+    for(int i = l ; i < *t-1; i++){
+        postes[i] = postes[i+1];
+    }
+    *t = *t - 1;
+    for(int i = k; i < *t2 - 1; i++){
+        portas[i] = portas[i + 1];
+    }
+    *t2 = *t2-1;
+}
+void imprime_mapa(int IDposte, Objeto* poste,int IDbotao, Objeto* botao, int IDpedra, Objeto* pedra, Objeto* player){
+    for(int i = 0; i < IDposte; i++){
+        objeto_print(&poste[i]);
+    }
+    for(int i = 0; i < IDbotao; i++){
+        objeto_print(&botao[i]);
+    }
+    for(int i = 0; i < IDpedra; i++){
+        objeto_print(&pedra[i]);
+    }
+    objeto_print(player);
+}
 
 
 

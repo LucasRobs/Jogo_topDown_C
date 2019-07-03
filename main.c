@@ -9,30 +9,6 @@ int NL = 40;
 int NC = 88;
 int MAX = 4000;
 
-void destruir_postes(int l, Objeto* postes, int *t, Objeto* portas, int *t2, int k){
-    for(int i = l ; i < *t-1; i++){
-        postes[i] = postes[i+1];
-    }
-    *t = *t - 1;
-    for(int i = k; i < *t2 - 1; i++){
-        portas[i] = portas[i + 1];
-    }
-    *t2 = *t2-1;
-}
-void imprime_mapa(int IDposte, Objeto* poste,int IDbotao, Objeto* botao, int IDpedra, Objeto* pedra, Objeto* player){
-    for(int i = 0; i < IDposte; i++){
-        objeto_print(&poste[i]);
-    }
-    for(int i = 0; i < IDbotao; i++){
-        objeto_print(&botao[i]);
-    }
-    for(int i = 0; i < IDpedra; i++){
-        objeto_print(&pedra[i]);
-    }
-    objeto_print(player);
-}
-
-
 int main(){
     int anterior = 0, timer = 0;
     FILE * ArqPost = fopen("level_1.txt", "r");
@@ -54,21 +30,21 @@ int main(){
             if (caractere == '=' || caractere == '|')
                 poste[IDposte].cor = RED;
             else
-                poste[IDposte].cor = YELLOW;
+                poste[IDposte].cor = WHITE;
             IDposte += 1;
             c += 1;
         }else if(caractere == 'o'){
             botao[IDbotao].x = c;
             botao[IDbotao].y = l;
-            botao[IDbotao].nome = caractere;
+            botao[IDbotao].nome = 'o';
             botao[IDbotao].cor = BLUE;
             IDbotao += 1;
             c += 1;
         }else if(caractere == '@'){
             pedra[IDpedra].x = c;
             pedra[IDpedra].y = l;
-            pedra[IDpedra].nome = 'ࠈ';
-            pedra[IDpedra].cor = WHITE;
+            pedra[IDpedra].nome = '#';
+            pedra[IDpedra].cor = RED;
             IDpedra += 1;
             c += 1;
         }else if(caractere == '\n'){
@@ -85,7 +61,7 @@ int main(){
     }
     int IDportas = 0, c2 = 0, l2 = 0;
 
-    for(int i = 0; i < 3; i++){
+    for(int i = 0; i < 22; i++){
         scanf("%d %d", &c2 ,&l2);
         portas[IDportas].x = l2;
         portas[IDportas].y = c2;
@@ -117,7 +93,6 @@ int main(){
             if((player->x == poste[i].x) && (player->y == poste[i].y))
                 *player = player_old;
 
-
         for(int i = 0; i < IDpedra; i++){
             if((player->x == pedra[i].x) && (player->y == pedra[i].y)){
                 Objeto pedra_old = pedra[i];
@@ -131,8 +106,8 @@ int main(){
                     }
             }
         }
+
         clrscr();
-        
         for(int i = 0; i < IDpedra; i++){
             bool achou = false;
             for(int j = 0; j < IDbotao; j++){
@@ -159,11 +134,8 @@ int main(){
             if(achou)
                 break;
         }
-        //for  paara caadaaa pedra ver se ppedraa ta em cima de algum botao
-            //see tiveer entao
-                //paraa o vetor de portas, assim qq encontraarr uma porta fechada, aabra eela ee dddee um break
-        imprime_mapa(IDposte, poste,IDbotao, botao, IDpedra, pedra, player);
         
+        imprime_mapa(IDposte, poste,IDbotao, botao, IDpedra, pedra, player);
         gotoxy(0, 0);
     }
 
