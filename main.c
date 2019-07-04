@@ -28,11 +28,11 @@ int main(){
             poste[IDposte].y = l;
             poste[IDposte].nome = caractere;
             if (caractere == '=' || caractere == '|')
-                poste[IDposte].cor = RED;
+                poste[IDposte].cor = YELLOW;
             else
                 poste[IDposte].cor = WHITE;
             IDposte += 1;
-            c += 1;
+            c += 1; 
         }else if(caractere == 'o'){
             botao[IDbotao].x = c;
             botao[IDbotao].y = l;
@@ -100,7 +100,7 @@ int main(){
                 pedra[i].y -= player_old.y - player->y;
                 for(int j = 0; j < IDposte; j++)
                     if((pedra[i].x == poste[j].x) && (pedra[i].y == poste[j].y)){
-                        *pedra = pedra_old;
+                        pedra[i] = pedra_old;
                         *player = player_old;
                         sprite(acao, player);
                     }
